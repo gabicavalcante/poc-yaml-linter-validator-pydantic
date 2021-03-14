@@ -1,0 +1,5 @@
+teste: poc
+metadata:
+    description: poc-test to validate linter
+spec:
+    key-error: error

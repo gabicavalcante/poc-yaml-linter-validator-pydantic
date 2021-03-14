@@ -1,0 +1,4 @@
+*.json
+venv
+yaml_files/catalog-*.yaml
+__pycache__
