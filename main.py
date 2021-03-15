@@ -40,18 +40,17 @@ async def validate(file_path: str):
     with open(file_path, newline="") as f:
         has_error = False
         content = f.read()
-
         linter_result = [
-            *map(
-                lambda x: {
-                    "line": x.line,
-                    "column": x.column,
-                    "level": x.level,
-                    "message": x.message,
-                },
-                linter(content),
-            )
+            {
+                "line": l.line,
+                "column": l.column,
+                "level": l.level,
+                "message": l.message,
+                
+            }
+            for l in linter(content)
         ]
+
         if linter_result:
             yield {"file_path": file_path, "validation_message": linter_result}
             return
