@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "description": "Catalog-info validator schema, to validate created ones",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "manifestVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["Component", "API", "Resource"]
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "namespace": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9._-]*$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "pattern": "^[a-zA-Z0-9_-]*$"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9-]*$"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "required": ["type", "lifecycle", "owner"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["service", "website", "library"]
+        },
+        "lifecycle": {
+          "type": "string",
+          "enum": ["experimental", "production", "deprecated"]
+        },
+        "owner": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "@gmail.com.br"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

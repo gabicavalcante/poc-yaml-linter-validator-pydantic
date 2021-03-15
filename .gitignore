@@ -1,4 +1,7 @@
-*.json
+catalog.schema.json
+schema.py
+yaml_files/catalog-info/
+
 venv
-yaml_files/catalog-*.yaml
 __pycache__
+.vscode/

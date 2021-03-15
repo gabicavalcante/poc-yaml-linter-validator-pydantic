@@ -6,7 +6,7 @@ import io
 import asyncio
 import pydantic
 
-from schemas import CatalogInfo
+from schema import CatalogInfo
 
 
 def format(e: pydantic.ValidationError) -> dict:
@@ -53,7 +53,8 @@ async def validate(file_path: str):
             )
         ]
         if linter_result:
-            yield {"validation_message": linter_result}
+            yield {"file_path": file_path, "validation_message": linter_result}
+            return
 
         try:
             poc = yaml.safe_load_all(content)
@@ -64,7 +65,7 @@ async def validate(file_path: str):
                     "validation_message": "Congrats! Errors not found",
                 }
         except pydantic.ValidationError as e:
-            yield {"app": content["metadata"].get("name"), "validation_message": format(e)}
+            yield {"app": content["metadata"]["name"], "validation_message": format(e)}
         except Exception as e:
             raise Exception("invalid file: %s" % e)
 
